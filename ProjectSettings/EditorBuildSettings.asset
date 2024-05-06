@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Jacobs Scene.unity
+  - enabled: 0
+    path: Assets/Scenes/MainMenuScene.unity
     guid: c43f054d50f5e9144905181fdf556976
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Scenes/EnemyScene.unity
+    guid: ef31fffdc97131244ae7fcfa439a0eb0
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
