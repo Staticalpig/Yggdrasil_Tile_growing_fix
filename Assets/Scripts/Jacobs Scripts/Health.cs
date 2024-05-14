@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
@@ -40,7 +41,7 @@ public class Health : MonoBehaviour
                 GetComponent<Player>().enabled = false;
                 GetComponent<SpriteRenderer>().enabled = false;
                 // show game over screen
-               
+                SceneManager.LoadScene("MainMenuScene");
 
                 dead = true;
 
