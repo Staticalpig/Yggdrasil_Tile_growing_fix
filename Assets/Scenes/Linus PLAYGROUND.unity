@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 1452174096}
   - component: {fileID: 1452174095}
   - component: {fileID: 1452174097}
+  - component: {fileID: 1452174098}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -286,7 +287,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a20d4aa721b3049b9c33a0bcd6a616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newTile: {fileID: 11400000, guid: f1385a726905d9444a3775c267c26e15, type: 2}
+  newTile: {fileID: 11400000, guid: 33dd9ec4a80e403468683488f7e85906, type: 2}
+  specificTile: {fileID: 11400000, guid: f1385a726905d9444a3775c267c26e15, type: 2}
+--- !u!114 &1452174098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452174093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec89819983566344889f69b95ea4b425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 2105022290}
+  initialTile: {fileID: 11400000, guid: 33dd9ec4a80e403468683488f7e85906, type: 2}
+  intermediateTile: {fileID: 11400000, guid: 8a2a0ed493d5fed4992ee83eb78de33b, type: 2}
+  finalTile: {fileID: 11400000, guid: f1385a726905d9444a3775c267c26e15, type: 2}
+  initialDelay: 3
+  intermediateDelay: 3
 --- !u!1 &2080924860
 GameObject:
   m_ObjectHideFlags: 0
