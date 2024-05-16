@@ -10,156 +10,110 @@ public class TileTimer : MonoBehaviour
     public float initialDelay = 3f; // Delay before switching initial tiles to intermediate tiles (in seconds)
     public float intermediateDelay = 3f; // Delay before switching intermediate tiles to final tiles (in seconds)
 
-    private TileBase[,] previousTiles;
+    private float initialSwitchTimer = 0f;
+    private float intermediateSwitchTimer = 0f;
+    private TileBase finalTileAtStart;
+    public int stage { get; private set; } // Stage property accessible from outside
     private bool timerActive = false;
     private float switchTimer = 0f;
-    private int stage = 0; // 0: Initial, 1: Intermediate, 2: Final
 
     void Start()
-{
-    // Start the timer
-    StartTimer();
-}
-
-
-
-    void Update()
     {
-        // If timer is active, countdown
-        if (timerActive)
+        // Set the final tile at start
+        finalTileAtStart = finalTile;
+
+        // Start the initial timer
+        StartInitialTimer();
+    }
+
+    // Add this boolean variable at the top of the script
+private bool finalStageReached = false;
+
+// Modify the Update method as follows
+void Update()
+{
+    // If initial timer is active, countdown
+    if (!finalStageReached && initialSwitchTimer > 0f)
+    {
+        initialSwitchTimer -= Time.deltaTime;
+
+        // If timer runs out, switch tiles and reset timer
+        if (initialSwitchTimer <= 0f)
         {
-            switchTimer -= Time.deltaTime;
-
-            // If timer runs out, switch tiles and reset timer
-            if (switchTimer <= 0f)
-            {
-                SwitchTiles();
-                Debug.Log(GetStageName(stage) + " stage completed.");
-
-                // Increment stage and set timer for next stage
-                stage++;
-                if (stage == 1)
-                {
-                    switchTimer = intermediateDelay;
-                    Debug.Log("Timer started for intermediate stage.");
-                }
-                else if (stage == 2)
-                {
-                    // No need for a timer for the final stage, so we end the process here
-                    StopTimer();
-                    Debug.Log("All tiles at final stage. Timer stopped.");
-                }
-            }
+            SwitchTiles(initialTile, intermediateTile);
+            Debug.Log("Initial stage completed. Timer started for intermediate stage.");
+            StartIntermediateTimer();
         }
     }
 
-    void InitializePreviousTiles()
-{
-    // Get the bounds of the tilemap
-    BoundsInt bounds = tilemap.cellBounds;
-
-    // Check if the previousTiles array needs to be resized
-    if (previousTiles == null || previousTiles.GetLength(0) != bounds.size.x || previousTiles.GetLength(1) != bounds.size.y)
+    // If intermediate timer is active, countdown
+    if (!finalStageReached && intermediateSwitchTimer > 0f)
     {
-        // Resize the previousTiles array to match the size of the tilemap bounds
-        previousTiles = new TileBase[bounds.size.x, bounds.size.y];
+        intermediateSwitchTimer -= Time.deltaTime;
+
+        // If timer runs out, switch tiles directly to the final stage
+        if (intermediateSwitchTimer <= 0f)
+        {
+            SwitchTiles(intermediateTile, finalTile);
+            Debug.Log("Intermediate stage completed. Switched directly to final stage.");
+            finalStageReached = true;
+        }
     }
 
-    // Loop through all positions within the tilemap bounds
-    foreach (Vector3Int pos in bounds.allPositionsWithin)
+    // Check if the Final Tile is different from the tile it was set to during start
+    if (!finalStageReached && finalTile != finalTileAtStart)
     {
-        // Calculate the array index based on the position relative to the tilemap bounds
-        int x = pos.x - bounds.xMin;
-        int y = pos.y - bounds.yMin;
-
-        // Check if the position is within the tilemap bounds
-        if (x >= 0 && x < bounds.size.x && y >= 0 && y < bounds.size.y)
-        {
-            // Store the tile at the current position in the previousTiles array
-            previousTiles[x, y] = tilemap.GetTile(pos);
-        }
+        Debug.Log("Final tile changed. Restarting initial stage timer.");
+        StartInitialTimer();
+        // Update the stored Final Tile to the new value
+        finalTileAtStart = finalTile;
     }
 }
 
-
-
-
-    void StartTimer()
+    public void StartInitialTimer()
     {
-        // Start the timer and set the initial delay
+        initialSwitchTimer = initialDelay;
+        Debug.Log("Initial stage timer started.");
+    }
+    public void RestartInitialTimer()
+    {
+        // Reset stage to initial
+        stage = 0;
+
+        // Restart timer for initial stage
+        StartTimer(initialDelay);
+    }
+
+    private void StartTimer(float delay)
+    {
+        // Start the timer
         timerActive = true;
-        switchTimer = initialDelay;
+        switchTimer = delay;
         Debug.Log("Timer started for initial stage.");
     }
 
-    void StopTimer()
+    void StartIntermediateTimer()
     {
-        // Stop the timer
-        timerActive = false;
+        intermediateSwitchTimer = intermediateDelay;
     }
 
-    void SwitchTiles()
-{
-    // Switch tiles based on the current stage
-    TileBase currentTile = (stage == 0) ? initialTile : intermediateTile;
 
-    BoundsInt bounds = tilemap.cellBounds;
-
-    foreach (Vector3Int pos in bounds.allPositionsWithin)
+    public void ResetTimers()
     {
-        int x = pos.x - bounds.xMin;
-        int y = pos.y - bounds.yMin;
+        // Reset switch timers
+        initialSwitchTimer = initialDelay;
+        intermediateSwitchTimer = 0f;
+    }
 
-        if (x < 0 || x >= previousTiles.GetLength(0) || y < 0 || y >= previousTiles.GetLength(1))
+    void SwitchTiles(TileBase fromTile, TileBase toTile)
+    {
+        // Switch tiles based on the current stage
+        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
-            continue;
+            if (tilemap.GetTile(pos) == fromTile)
+            {
+                tilemap.SetTile(pos, toTile);
+            }
         }
-
-        if (previousTiles[x, y] == currentTile)
-        {
-            tilemap.SetTile(pos, GetNextTile(stage));
-        }
-    }
-
-    // Update the previousTiles array with the current state of the tilemap
-    UpdatePreviousTiles();
-}
-
-
-
-
-    void UpdatePreviousTiles()
-{
-    // Get the bounds of the tilemap
-    BoundsInt bounds = tilemap.cellBounds;
-
-    // Loop through all positions within the tilemap bounds
-    foreach (Vector3Int pos in bounds.allPositionsWithin)
-    {
-        int x = pos.x - bounds.xMin;
-        int y = pos.y - bounds.yMin;
-
-        if (x < 0 || x >= previousTiles.GetLength(0) || y < 0 || y >= previousTiles.GetLength(1))
-        {
-            continue;
-        }
-
-        // Update the previousTiles array with the current state of the tilemap
-        previousTiles[x, y] = tilemap.GetTile(pos);
-    }
-}
-
-
-
-    TileBase GetNextTile(int currentStage)
-    {
-        // Determine the next tile based on the current stage
-        return (currentStage == 0) ? intermediateTile : finalTile;
-    }
-
-    string GetStageName(int stage)
-    {
-        // Return the name of the stage based on its index
-        return (stage == 0) ? "Initial" : (stage == 1) ? "Intermediate" : "Final";
     }
 }

@@ -3,9 +3,10 @@ using UnityEngine.Tilemaps;
 
 public class TileClick : MonoBehaviour
 {
-    public TileBase newTile; // Tile to change to
+    public TileBase initialTile; // Initial tile referenced in TileTimer
     public TileBase specificTile; // Tile that must be present to allow clicking
     private Tilemap tilemap;
+    public TileTimer tileTimer; // Reference to the TileTimer script
 
     private void Start()
     {
@@ -27,6 +28,13 @@ public class TileClick : MonoBehaviour
                 if (originalTile == specificTile)
                 {
                     ChangeTile(hit.point);
+
+                    // Check if the tile change is from final to initial
+                    if (tileTimer != null)
+                    {
+                        // Restart initial timer
+                        tileTimer.RestartInitialTimer();
+                    }
                 }
             }
         }
@@ -37,7 +45,7 @@ public class TileClick : MonoBehaviour
         // Convert the mouse position to the cell position on the Tilemap
         Vector3Int cellPos = tilemap.WorldToCell(worldPos);
 
-        // Change the tile at the clicked position
-        tilemap.SetTile(cellPos, newTile);
+        // Change the tile at the clicked position to the initial tile
+        tilemap.SetTile(cellPos, initialTile);
     }
 }
