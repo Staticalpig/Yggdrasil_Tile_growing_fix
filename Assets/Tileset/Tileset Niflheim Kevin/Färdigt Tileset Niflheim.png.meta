@@ -101,9 +101,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 16
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,9 +122,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 0
+        y: 16
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,9 +143,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 16
         width: 16
-        height: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,6 +155,69 @@ TextureImporter:
       bones: []
       spriteID: 0ca646a7025f83544a60498b18fdba26
       internalID: -1231219339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "F\xE4rdigt Tileset Niflheim_3"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 847f92e847a97e449a536fe2b441c885
+      internalID: 1036278282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "F\xE4rdigt Tileset Niflheim_4"
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51afb41c24e63524b813a1d4bcb3ce07
+      internalID: 149071431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "F\xE4rdigt Tileset Niflheim_5"
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b62e6f3620264a145a7cd386b031d78b
+      internalID: 1154618423
       vertices: []
       indices: 
       edges: []
@@ -173,6 +236,9 @@ TextureImporter:
       "F\xE4rdigt Tileset Niflheim_0": -663377093
       "F\xE4rdigt Tileset Niflheim_1": -1362814525
       "F\xE4rdigt Tileset Niflheim_2": -1231219339
+      "F\xE4rdigt Tileset Niflheim_3": 1036278282
+      "F\xE4rdigt Tileset Niflheim_4": 149071431
+      "F\xE4rdigt Tileset Niflheim_5": 1154618423
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
