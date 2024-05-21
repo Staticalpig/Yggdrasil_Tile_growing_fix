@@ -9,6 +9,7 @@ public class Enemy_Damage : MonoBehaviour
     int currentHealth;
     public MonoBehaviour EnemyScase;
     private Collider2D enemyCollider;
+    public float stunDuration = 1f; // Duration to be stunned
 
     private void Start()
     {
@@ -20,9 +21,13 @@ public class Enemy_Damage : MonoBehaviour
     {
         currentHealth -= damage;
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
+        }
+        else
+        {
+            StartCoroutine(StunEnemy());
         }
     }
 
@@ -36,6 +41,16 @@ public class Enemy_Damage : MonoBehaviour
         if (enemyCollider != null)
         {
             enemyCollider.enabled = false; // Disabling the collider
+        }
+    }
+
+    IEnumerator StunEnemy()
+    {
+        if (EnemyScase != null)
+        {
+            EnemyScase.GetComponent<EnemyScase>().isStunned = true;
+            yield return new WaitForSeconds(stunDuration);
+            EnemyScase.GetComponent<EnemyScase>().isStunned = false;
         }
     }
 

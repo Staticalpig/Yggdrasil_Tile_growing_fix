@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIscript : MonoBehaviour
+public class EnemyScase : MonoBehaviour
 {
     public GameObject player;
     public float speed;
@@ -11,6 +11,7 @@ public class AIscript : MonoBehaviour
     private float distance;
     public float distanceBetween;
     private bool facingRight = true; // Track the direction the enemy is facing
+    public bool isStunned = false; // Track if the enemy is stunned
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,9 @@ public class AIscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isStunned)
+            return; // If stunned, do nothing
+
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
