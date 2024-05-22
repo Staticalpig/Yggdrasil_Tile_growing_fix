@@ -1,20 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy_Damage : MonoBehaviour
 {
     public int maxHealth = 3;
-    int currentHealth;
+    private int currentHealth;
     public MonoBehaviour EnemyScase;
     private Collider2D enemyCollider;
     public float stunDuration = 1f; // Duration to be stunned
+    public float knockBackForce = 10f; // Force of the knock-back
+    public float knockBackDuration = 0.2f; // Duration of the knock-back effect
+
+    private Rigidbody2D rb;
 
     private void Start()
     {
         currentHealth = maxHealth;
         enemyCollider = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void EnemyTakeDamage(int damage)
@@ -27,7 +30,7 @@ public class Enemy_Damage : MonoBehaviour
         }
         else
         {
-            StartCoroutine(StunEnemy());
+            StartCoroutine(KnockBackAndStun());
         }
     }
 
@@ -44,8 +47,18 @@ public class Enemy_Damage : MonoBehaviour
         }
     }
 
-    IEnumerator StunEnemy()
+    IEnumerator KnockBackAndStun()
     {
+        if (rb != null)
+        {
+            Vector2 knockBackDirection = (transform.position - GameObject.FindWithTag("Player").transform.position).normalized;
+            rb.AddForce(knockBackDirection * knockBackForce, ForceMode2D.Impulse);
+
+            yield return new WaitForSeconds(knockBackDuration); // Wait for knock-back effect to complete
+
+            rb.velocity = Vector2.zero; // Stop the enemy's movement
+        }
+
         if (EnemyScase != null)
         {
             EnemyScase.GetComponent<EnemyScase>().isStunned = true;
@@ -58,7 +71,7 @@ public class Enemy_Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Health>().TakeDamage(damage);
         }
