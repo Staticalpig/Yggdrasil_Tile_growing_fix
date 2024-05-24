@@ -228,6 +228,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4439f51b00d21d74f9c0071abea24443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &513853875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 513853876}
+  - component: {fileID: 513853878}
+  - component: {fileID: 513853877}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &513853876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513853875}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.48916078, y: 1.695777, z: 0.038067993}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &513853877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513853875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61be73493349b454ba3b8d7e15d7d046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &513853878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513853875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378503b345ce8594699ff0bef6978bf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPickup: 0
 --- !u!1 &584093363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2673,3 +2731,4 @@ SceneRoots:
   - {fileID: 30836492}
   - {fileID: 1452174096}
   - {fileID: 2080924863}
+  - {fileID: 513853876}
